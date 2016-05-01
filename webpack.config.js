@@ -4,10 +4,10 @@ var webpack = require('webpack');
 module.exports = {
     entry: {
       app: "./src/index.tsx",
-      vendor: [
-        'react',
-        'react-dom',
-      ]
+      // vendor: [
+      //   'react',
+      //   'react-dom',
+      // ]
     },
     output: {
         filename: "./dist/bundle.js",
