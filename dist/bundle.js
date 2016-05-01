@@ -25547,7 +25547,7 @@
 	var react_bootstrap_1 = __webpack_require__(229);
 	exports.Greeting = (React.createElement(react_bootstrap_1.Jumbotron, null, 
 	    React.createElement("h1", null, "Hello, I'm muukii"), 
-	    React.createElement("p", null, "This page is built by React + Babel + webpack")));
+	    React.createElement("p", null, "This page is built by TypeScript + React + Babel + webpack")));
 
 
 /***/ },
