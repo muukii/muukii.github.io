@@ -4,7 +4,7 @@ import { ListGroup } from 'react-bootstrap'
 import { ListGroupItem } from 'react-bootstrap'
 
 export class OSSObject {
-    
+
     public key: string;
     public name: string;
     public description: string;
@@ -19,7 +19,7 @@ export class OSSObject {
 }
 
 export interface OSSListProps {
-    
+
 }
 
 export interface OSSListState {
@@ -53,7 +53,7 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
 
     render() {
         console.log('render');
-        
+
         var oss = this.state.ossObjects.map((ossObject) => {
             return <ListGroupItem key={ossObject.key} header={ossObject.name} onClick={() => { this._onClick(ossObject) }}>{ossObject.description}</ListGroupItem>
         })
@@ -67,6 +67,7 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
     _onClick(ossObject: OSSObject) {
         console.log(this);
         console.log(ossObject.URL);
+        window.open(ossObject.URL, '_blank');
     }
 }
 
