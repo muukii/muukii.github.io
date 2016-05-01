@@ -6,6 +6,6 @@ import { Button } from 'react-bootstrap'
 export const Greeting = (
   <Jumbotron>
     <h1>Hello, I'm muukii</h1>
-    <p>This page is built by React + Babel + webpack</p>
+    <p>This page is built by TypeScript + React + Babel + webpack</p>
   </Jumbotron>
 );
