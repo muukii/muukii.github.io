@@ -2,7 +2,13 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: {
+      app: "./src/index.tsx",
+      vendor: [
+        'react',
+        'react-dom',
+      ]
+    },
     output: {
         filename: "./dist/bundle.js",
     },
@@ -31,10 +37,10 @@ module.exports = {
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
-    },
+    // externals: {
+    //     "react": "React",
+    //     "react-dom": "ReactDOM"
+    // },
 };
 
 // https://github.com/Microsoft/TypeScript-Handbook/blob/master/pages/quick-start/react-webpack.md
