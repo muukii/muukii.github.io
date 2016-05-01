@@ -1,22 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import * as React from 'react'
 import { ButtonToolbar } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
 
-class Container extends React.Component {
-  render() {
-    return (
-      <h1>Open Source Libraries</h1>
-    )
-  }
-}
-
-ReactDOM.render(
-  <Container />,
-  document.getElementById('container')
-)
-
-const buttonsInstance = (
+export const buttonsInstance = (
   <ButtonToolbar>
     {/* Standard button */}
     <Button>Default</Button>
@@ -40,5 +26,3 @@ const buttonsInstance = (
     <Button bsStyle="link">Link</Button>
   </ButtonToolbar>
 );
-
-ReactDOM.render(buttonsInstance, document.getElementById('container'));
