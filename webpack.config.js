@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: "./src/index.tsx",
+    app: "./src/index.jsx",
     // app: "./src/components/top/sample.jsx",
     // vendor: [
     //   'react',
@@ -20,14 +20,14 @@ module.exports = {
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".jsx"]
+    extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
   },
 
   module: {
     loaders: [
 
       // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
-      { test: /\.tsx?$/, loader: "ts-loader" },
+      // { test: /\.tsx?$/, loader: "ts-loader" },
       {
         test: /.jsx?$/,
         loader: 'babel-loader',
@@ -43,7 +43,7 @@ module.exports = {
       // 画像ファイルを読み込んだ場合にurl-loaderを使用する。ファイルサイズが8kb以下であればdata-uriに変換する
       {
         test: /\.(jpg|png)$/,
-        loader: "url!ts?mimetype=image/png",
+        loader: "url?mimetype=image/png",
       },
       // {
       //   test: /\.(jpg|png)$/,

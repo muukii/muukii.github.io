@@ -1,9 +1,7 @@
-import * as React from 'react'
-import * as ReactDOM from "react-dom"
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { Router, Route, browserHistory } from 'react-router'
-import { Top } from './components/top/top_index.tsx'
-
-console.log("load")
+import { Top } from './components/top/top_index'
 
 ReactDOM.render(
 	<Router history={browserHistory}>

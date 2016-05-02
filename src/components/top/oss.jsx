@@ -1,20 +1,15 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import { ListGroup } from 'react-bootstrap'
 import { ListGroupItem } from 'react-bootstrap'
 
 export class OSSObject {
 
-    public key: string;
-    public name: string;
-    public description: string;
-    public URL: string;
-
-    constructor(name: string, description: string, URL: string) {
-        this.key = name;
-        this.name = name;
-        this.description = description;
-        this.URL = URL;
+    constructor(name, description, URL) {
+        this.key = name
+        this.name = name
+        this.description = description
+        this.URL = URL
     }
 }
 
@@ -62,7 +57,7 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
         );
     }
 
-    _onClick(ossObject: OSSObject) {
+    _onClick(ossObject) {
         console.log(this);
         console.log(ossObject.URL);
         window.open(ossObject.URL, '_blank');

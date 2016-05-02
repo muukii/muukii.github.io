@@ -1,16 +1,10 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { Greeting } from "./greeting.tsx";
-import { Apps } from "./apps.tsx";
-import { OSSList } from "./oss.tsx";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Greeting } from "./greeting";
+import { Apps } from "./apps";
+import { OSSList } from "./oss";
 
-export interface TopProps {
-}
-
-export interface TopState {
-}
-
-export class Top extends React.Component<TopProps, TopState> {
+export class Top extends React.Component {
   render() {
     return (
       <div className="container">
