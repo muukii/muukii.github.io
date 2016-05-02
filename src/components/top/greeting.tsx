@@ -1,11 +1,21 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Jumbotron } from 'react-bootstrap'
-import { Button } from 'react-bootstrap'
+import { Jumbotron, Button } from "react-bootstrap";
 
-export const Greeting = (
-  <Jumbotron>
-    <h1>Hello, I'm muukii</h1>
-    <p>This page is built by TypeScript + React + Babel + webpack</p>
-  </Jumbotron>
-);
+export interface GreetingProps {
+
+}
+
+export interface GreetingState {
+
+}
+
+export class Greeting extends React.Component<GreetingProps, GreetingState> {
+  render() {
+    return (
+      <div>
+        <h1>Hi, I'm muukii</h1>
+      </div>
+    );
+  }
+}

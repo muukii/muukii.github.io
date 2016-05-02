@@ -29,7 +29,7 @@ export interface OSSListState {
 export class OSSList extends React.Component<OSSListProps, OSSListState> {
 
     constructor() {
-        super()
+        super();
         this.state = { ossObjects: [
             new OSSObject('RxAssert', '', 'https://github.com/muukii/RxAssert'),
             new OSSObject('Presenter', '', 'https://github.com/muukii/Presenter'),
@@ -44,7 +44,7 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
             new OSSObject('RESTRequest', '', 'https://github.com/muukii/RESTRequest'),
             new OSSObject('ViewFinder', '', 'https://github.com/muukii/ViewFinder'),
             new OSSObject('RxUnsplashSource', '', 'https://github.com/muukii/RxUnsplashSource')
-        ] }
+        ] };
     }
 
     componentWillMount() {
@@ -52,16 +52,14 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
     }
 
     render() {
-        console.log('render');
-
-        var oss = this.state.ossObjects.map((ossObject) => {
-            return <ListGroupItem key={ossObject.key} header={ossObject.name} onClick={() => { this._onClick(ossObject) }}>{ossObject.description}</ListGroupItem>
-        })
+        const oss = this.state.ossObjects.map((ossObject) => {
+            return <ListGroupItem key={ossObject.key} header={ossObject.name} onClick={() => { this._onClick(ossObject) }}>{ossObject.description}</ListGroupItem>;
+        });
         return (
             <ListGroup>
             {oss}
             </ListGroup>
-        )
+        );
     }
 
     _onClick(ossObject: OSSObject) {

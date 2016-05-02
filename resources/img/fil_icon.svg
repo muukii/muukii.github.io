@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="95px" height="95px" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="-22.8199843%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FE6856" offset="0%"></stop>
+            <stop stop-color="#DF1D46" offset="100%"></stop>
+        </linearGradient>
+        <path d="M48.0566406,77.7441406 C64.4525941,77.7441406 77.7441406,64.4525941 77.7441406,48.0566406 C77.7441406,31.6606871 64.4525941,18.3691406 48.0566406,18.3691406 C31.6606871,18.3691406 18.3691406,31.6606871 18.3691406,48.0566406 C18.3691406,64.4525941 31.6606871,77.7441406 48.0566406,77.7441406 Z M48.0566406,73.4765625 C62.0956758,73.4765625 73.4765625,62.0956758 73.4765625,48.0566406 C73.4765625,34.0176054 62.0956758,22.6367188 48.0566406,22.6367188 C34.0176054,22.6367188 22.6367188,34.0176054 22.6367188,48.0566406 C22.6367188,62.0956758 34.0176054,73.4765625 48.0566406,73.4765625 Z" id="path-2"></path>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-465.000000, -495.000000)">
+            <g id="Group-2" transform="translate(465.000000, 495.000000)">
+                <rect id="Rectangle-255" fill="#202638" x="0" y="0" width="95" height="95" rx="20"></rect>
+                <mask id="mask-3" fill="white">
+                    <use xlink:href="#path-2"></use>
+                </mask>
+                <use id="Combined-Shape" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                <g id="Group" mask="url(#mask-3)" fill="#000000">
+                    <g transform="translate(47.500000, 48.154626) rotate(-315.000000) translate(-47.500000, -48.154626) translate(9.000000, 9.654626)">
+                        <rect id="Rectangle-121" opacity="0" style="mix-blend-mode: multiply;" x="8.8817842e-15" y="3.57361199e-14" width="19.0185547" height="76.0742187"></rect>
+                        <rect id="Rectangle-121-Copy" opacity="0.1" style="mix-blend-mode: multiply;" x="19.0185547" y="1.0658141e-13" width="19.0185547" height="76.0742188"></rect>
+                        <rect id="Rectangle-121-Copy-2" opacity="0.2" style="mix-blend-mode: multiply;" x="38.0371094" y="2.84217094e-14" width="19.0185547" height="76.0742188"></rect>
+                        <rect id="Rectangle-121-Copy-3" opacity="0.3" style="mix-blend-mode: multiply;" x="57.0556641" y="2.13162821e-14" width="19.0185547" height="76.0742188"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
