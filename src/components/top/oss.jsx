@@ -51,7 +51,7 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
           return (
             <li>
               <h3 key={ossObject.key}><a key={ossObject.key} target="_blank" href={ossObject.URL}>{ossObject.name}</a></h3>
-              <p>{ossObject.description}</p>
+              <p key={ossObject.key}>{ossObject.description}</p>
             </li>
           )
         });
