@@ -3,16 +3,11 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: "./src/index.jsx",
-    // app: "./src/components/top/sample.jsx",
-    // vendor: [
-    //   'react',
-    //   'react-dom',
-    // ]
+    app: path.join(__dirname, "/src/index.jsx"),
   },
   output: {
-    filename: "./dist/bundle.js",
-    publicPath: "./dist/assets/"
+    filename: "bundle.js",
+    path: path.join(__dirname, "dist/")
   },
 
   // Enable sourcemaps for debugging webpack's output.

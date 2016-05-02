@@ -8,7 +8,7 @@ export class Apps extends React.Component {
   render() {
     return (
       <div>
-        <h1>Apps</h1>
+        <h1>Apps</h1>        
         <img width={95} src={ require('../../../resources/img/fil.png') }></img>
       </div>
     )

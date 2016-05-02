@@ -13,15 +13,7 @@ export class OSSObject {
     }
 }
 
-export interface OSSListProps {
-
-}
-
-export interface OSSListState {
-    ossObjects: OSSObject[]
-}
-
-export class OSSList extends React.Component<OSSListProps, OSSListState> {
+export class OSSList extends React.Component {
 
     constructor() {
         super();
