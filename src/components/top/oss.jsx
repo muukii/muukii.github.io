@@ -50,8 +50,8 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
         const oss = this.state.ossObjects.map((ossObject) => {
           return (
             <li>
-              <h3 key={ossObject.key}><a key={ossObject.key} target="_blank" href={ossObject.URL}>{ossObject.name}</a></h3>
-              <p key={ossObject.key}>{ossObject.description}</p>
+              <h3 key={ossObject.key}><a target="_blank" href={ossObject.URL}>{ossObject.name}</a></h3>
+              <p>{ossObject.description}</p>
             </li>
           )
         });
