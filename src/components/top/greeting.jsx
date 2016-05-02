@@ -7,6 +7,10 @@ export class Greeting extends React.Component {
     return (
       <div>
         <h1>Hi, I'm muukii</h1>
+        <p>I’m iOS Developer.<br/>
+          I currently work at eureka.<br/>
+          My favorite guitar is Suhr.
+        </p>
       </div>
     );
   }

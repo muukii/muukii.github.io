@@ -26,14 +26,14 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
     constructor() {
         super();
         this.state = { ossObjects: [
-            new OSSObject('RxAssert', '', 'https://github.com/muukii/RxAssert'),
+            new OSSObject('NextGrowingTextView', 'The next in the generations of \'growing textviews\' optimized for iOS 7 and above.', 'https://github.com/muukii/NextGrowingTextView'),
+            new OSSObject('TextAttributesUtil', 'Quickly create NSAttributedString with TextAttributes', 'https://github.com/muukii/TextAttributesUtil'),
+            new OSSObject('AppVersionMonitor', 'Monitor iOS app version easily.', 'https://github.com/eure/AppVersionMonitor'),
+            new OSSObject('LightRoom', 'Easy Chaining ImageFilter with CoreImage', 'https://github.com/muukii/LightRoom'),
+            new OSSObject('RxAssert', 'Check element in Stream', 'https://github.com/muukii/RxAssert'),
             new OSSObject('Presenter', '', 'https://github.com/muukii/Presenter'),
-            new OSSObject('AppVersionMonitor', '', 'https://github.com/eure/AppVersionMonitor'),
-            new OSSObject('NextGrowingTextView', '', 'https://github.com/muukii/NextGrowingTextView'),
-            new OSSObject('TextAttributesUtil', '', 'https://github.com/muukii/TextAttributesUtil'),
-            new OSSObject('LightRoom', '', 'https://github.com/muukii/LightRoom'),
             new OSSObject('HTTPLogger', '', 'https://github.com/muukii/HTTPLogger'),
-            new OSSObject('RealmDefaults', '', 'https://github.com/muukii/RealmDefaults'),
+            new OSSObject('RealmDefaults', 'RealmDefaults is a Simple value store. Replacement for NSUserDefaults', 'https://github.com/muukii/RealmDefaults'),
             new OSSObject('Realm-EasyBackground', '', 'https://github.com/muukii/Realm-EasyBackground'),
             new OSSObject('BrickRequest', '', 'https://github.com/muukii/BrickRequest'),
             new OSSObject('RESTRequest', '', 'https://github.com/muukii/RESTRequest'),
@@ -48,12 +48,20 @@ export class OSSList extends React.Component<OSSListProps, OSSListState> {
 
     render() {
         const oss = this.state.ossObjects.map((ossObject) => {
-            return <ListGroupItem key={ossObject.key} header={ossObject.name} onClick={() => { this._onClick(ossObject) }}>{ossObject.description}</ListGroupItem>;
+          return (
+            <li>
+              <h3 key={ossObject.key}><a target="_blank" href={ossObject.URL}>{ossObject.name}</a></h3>
+              <p>{ossObject.description}</p>
+            </li>
+          )
         });
         return (
-            <ListGroup>
+          <div>
+          <h1>Open Source Libraries</h1>
+          <ul>
             {oss}
-            </ListGroup>
+          </ul>
+        </div>
         );
     }
 

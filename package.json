@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --progress --colors --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "muukii <muukii.muukii@gmail.com> (http://www.muukii.me/)",
+  "author": "muukii <m@muukii.me> (http://muukii.me/)",
   "license": "MIT",
   "dependencies": {
     "react": "^15.0.1",
