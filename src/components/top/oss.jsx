@@ -1,14 +1,77 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react'
+import ReactDOM from 'react-dom'
+// var cheerio = require('cheerio')
+import cheerio from 'cheerio'
+import axios from 'axios'
+
+const GitHubRequest = axios.create({
+  baseURL: 'https://api.github.com',
+});
+
+const GitHubPageRequest = axios.create({
+  baseURL: 'https://github.com'
+});
 
 export class OSSObject {
 
-    constructor(name, description, URL) {
-        this.key = name
+    constructor(name) {
         this.name = name
-        this.description = description
-        this.URL = URL
     }
+}
+
+class OSSItem extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      language: "",
+      name: "",
+      URL: "",
+      description: "",
+    }
+  }
+
+  componentWillMount() {
+    this.getInfo()
+  }
+
+  render() {
+    if (this.state.name !== "") {
+      return (
+        <li>
+          <h3 key={this.state.name}><a target="_blank" href={this.state.URL}>{this.state.name}</a></h3>
+          <p>{this.state.description}</p>
+        </li>
+      )
+    } else {
+      return false
+    }
+  }
+
+  // - Private
+  getInfo() {
+    GitHubRequest.get('/repos/muukii/' + this.props.ossObject.name + '?access_token=16a953b32933229e6f7b33d3237d3ca2793f29a2')
+    .then(r => {
+      let data = r.data
+      let url = data.html_url
+      let language = data.language
+      let name = data.name
+      let description = data.description
+
+      this.setState(
+        {
+          URL: url,
+          language: language,
+          name: name,
+          description: description,
+        }
+      )
+      console.log(r)
+    })
+    .catch(r => {
+      console.log(r)
+    });
+  }
 }
 
 export class OSSList extends React.Component {
@@ -16,19 +79,20 @@ export class OSSList extends React.Component {
     constructor() {
         super();
         this.state = { ossObjects: [
-            new OSSObject('NextGrowingTextView', 'The next in the generations of \'growing textviews\' optimized for iOS 7 and above.', 'https://github.com/muukii/NextGrowingTextView'),
-            new OSSObject('TextAttributesUtil', 'Quickly create NSAttributedString with TextAttributes', 'https://github.com/muukii/TextAttributesUtil'),
-            new OSSObject('AppVersionMonitor', 'Monitor iOS app version easily.', 'https://github.com/eure/AppVersionMonitor'),
-            new OSSObject('LightRoom', 'Easy Chaining ImageFilter with CoreImage', 'https://github.com/muukii/LightRoom'),
-            new OSSObject('RxAssert', 'Check element in Stream', 'https://github.com/muukii/RxAssert'),
-            new OSSObject('Presenter', '', 'https://github.com/muukii/Presenter'),
-            new OSSObject('HTTPLogger', '', 'https://github.com/muukii/HTTPLogger'),
-            new OSSObject('RealmDefaults', 'RealmDefaults is a Simple value store. Replacement for NSUserDefaults', 'https://github.com/muukii/RealmDefaults'),
-            new OSSObject('Realm-EasyBackground', '', 'https://github.com/muukii/Realm-EasyBackground'),
-            new OSSObject('BrickRequest', '', 'https://github.com/muukii/BrickRequest'),
-            new OSSObject('RESTRequest', '', 'https://github.com/muukii/RESTRequest'),
-            new OSSObject('ViewFinder', '', 'https://github.com/muukii/ViewFinder'),
-            new OSSObject('RxUnsplashSource', '', 'https://github.com/muukii/RxUnsplashSource')
+            new OSSObject('MusicalScaleKit'),
+            new OSSObject('NextGrowingTextView'),
+            new OSSObject('TextAttributesUtil'),
+            new OSSObject('AppVersionMonitor'),
+            new OSSObject('LightRoom'),
+            new OSSObject('RxAssert'),
+            new OSSObject('Presenter'),
+            new OSSObject('HTTPLogger'),
+            new OSSObject('RealmDefaults'),
+            new OSSObject('Realm-EasyBackground'),
+            new OSSObject('BrickRequest'),
+            new OSSObject('RESTRequest'),
+            new OSSObject('ViewFinder'),
+            new OSSObject('RxUnsplashSource'),
         ] };
     }
 
@@ -38,12 +102,7 @@ export class OSSList extends React.Component {
 
     render() {
         const oss = this.state.ossObjects.map((ossObject) => {
-          return (
-            <li>
-              <h3 key={ossObject.key}><a target="_blank" href={ossObject.URL}>{ossObject.name}</a></h3>
-              <p>{ossObject.description}</p>
-            </li>
-          )
+          return <OSSItem ossObject={ossObject} />
         });
         return (
           <div>

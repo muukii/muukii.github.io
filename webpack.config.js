@@ -15,7 +15,8 @@ module.exports = {
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
+    // root: [path.join(__dirname, 'node_modules/**/*')]
+    extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx", ".json"]
   },
 
   module: {
@@ -32,6 +33,7 @@ module.exports = {
           presets: ['es2015', 'react']
         }
       },
+      { test: /\.json$/, loader: 'json-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.svg$/, loader: 'url-loader?mimetype=image/svg+xml' },
       { test: /\.woff$/, loader: 'url-loader?mimetype=application/font-woff' },
