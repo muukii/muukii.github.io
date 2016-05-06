@@ -1,7 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ListGroup } from 'react-bootstrap'
-import { ListGroupItem } from 'react-bootstrap'
 
 export class OSSObject {
 

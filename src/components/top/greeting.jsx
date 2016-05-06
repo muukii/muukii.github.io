@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Jumbotron, Button } from "react-bootstrap";
 
 export class Greeting extends React.Component {
   render() {

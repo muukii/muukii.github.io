@@ -24,17 +24,20 @@ module.exports = {
       // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
       // { test: /\.tsx?$/, loader: "ts-loader" },
       {
-        test: /.jsx?$/,
+        test: /.js[x]?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
+          cacheDirectory: true,
           presets: ['es2015', 'react']
         }
       },
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css?modules'],
-      },
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.svg$/, loader: 'url-loader?mimetype=image/svg+xml' },
+      { test: /\.woff$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.woff2$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.eot$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.ttf$/, loader: 'url-loader?mimetype=application/font-woff' },
       // 画像ファイルを読み込んだ場合にurl-loaderを使用する。ファイルサイズが8kb以下であればdata-uriに変換する
       {
         test: /\.(jpg|png)$/,
