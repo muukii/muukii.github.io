@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>[iOS] 英数字と日本語でフォントを切り替える | muukii&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="iOS7から追加されたUIFontDescriptorというAPIを使うことで動的にフォントを作成、操作をすることができます。
+今回はUIFontDescriptorで英数字と日本語でフォントを使い分ける方法を紹介したいと思います。
+UIFontDescriptorUIFontDescriptorはUIFontを生成するためのメタ情報を持ったオブジェクトです。
+以下のようなコードでUIFontDe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[iOS] 英数字と日本語でフォントを切り替える">
+<meta property="og:url" content="http://muukii.me/2015/12/24/iOS-fontdescriptor/index.html">
+<meta property="og:site_name" content="muukii's blog">
+<meta property="og:description" content="iOS7から追加されたUIFontDescriptorというAPIを使うことで動的にフォントを作成、操作をすることができます。
+今回はUIFontDescriptorで英数字と日本語でフォントを使い分ける方法を紹介したいと思います。
+UIFontDescriptorUIFontDescriptorはUIFontを生成するためのメタ情報を持ったオブジェクトです。
+以下のようなコードでUIFontDe">
+<meta property="og:image" content="https://minbox.com/gi/gVdyKuC/full">
+<meta property="og:updated_time" content="2015-12-24T03:04:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[iOS] 英数字と日本語でフォントを切り替える">
+<meta name="twitter:description" content="iOS7から追加されたUIFontDescriptorというAPIを使うことで動的にフォントを作成、操作をすることができます。
+今回はUIFontDescriptorで英数字と日本語でフォントを使い分ける方法を紹介したいと思います。
+UIFontDescriptorUIFontDescriptorはUIFontを生成するためのメタ情報を持ったオブジェクトです。
+以下のようなコードでUIFontDe">
+  
+    <link rel="alternative" href="/atom.xml" title="muukii&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">muukii&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://muukii.me"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-iOS-fontdescriptor" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2015/12/24/iOS-fontdescriptor/" class="article-date">
+  <time datetime="2015-12-24T05:07:17.000Z" itemprop="datePublished">2015-12-24</time>
+</a>
+		</span>
+		<a class="meta-elements author" href="https://github.com/muukii0803">muukii</a>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      [iOS] 英数字と日本語でフォントを切り替える
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>iOS7から追加されたUIFontDescriptorというAPIを使うことで<br>動的にフォントを作成、操作をすることができます。</p>
+<p>今回はUIFontDescriptorで英数字と日本語でフォントを使い分ける方法を紹介したいと思います。</p>
+<h2 id="UIFontDescriptor">UIFontDescriptor</h2><p>UIFontDescriptorはUIFontを生成するためのメタ情報を持ったオブジェクトです。</p>
+<p>以下のようなコードでUIFontDescriptorからUIFontが生成できます。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIFont</span>(descriptor: fontDescriptor, size: <span class="number">20</span>)</span><br></pre></td></tr></table></figure></p>
+<p>UIFontDescriptorのメタ情報はDictionary(key - value)で設定します。</p>
+<p>今回使うのは、２つのKeyです。</p>
+<ul>
+<li>UIFontDescriptorCascadeListAttribute<ul>
+<li>メインのフォントで表せない文字を次のフォントを使って表す設定</li>
+</ul>
+</li>
+<li>UIFontDescriptorCharacterSetAttribute<ul>
+<li>指定したCharacterSetのみ指定したフォントを使う設定</li>
+</ul>
+</li>
+</ul>
+<h2 id="UIFontDescriptorの作成">UIFontDescriptorの作成</h2><p>まず、日本語用のUIFontDescriptorを作ります。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> baseDescriptor = <span class="type">UIFontDescriptor</span>(fontAttributes: [</span><br><span class="line">    <span class="type">UIFontDescriptorNameAttribute</span>: <span class="string">"HiraKakuProN-W6"</span>,</span><br><span class="line">    ])</span><br></pre></td></tr></table></figure>
+<p>baseDescriptorから英数字のNSCharacterSetを取り除いたUIFontDescriptorを作ります。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a-z A-Z 0-9を取り除く</span></span><br><span class="line"><span class="comment">// alphanumericCharacterSetだと取り除きたくないUnicodeも消えてしまったのでRangeで指定しています。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> charset = baseDescriptor.objectForKey(<span class="type">UIFontDescriptorCharacterSetAttribute</span>).mutableCopy() <span class="keyword">as</span>! <span class="type">NSMutableCharacterSet</span></span><br><span class="line">charset.formIntersectionWithCharacterSet(<span class="type">NSCharacterSet</span>(range: <span class="type">NSMakeRange</span>(<span class="number">33</span>, <span class="number">94</span>)).invertedSet)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> removedAlphanumericDescriptor = baseDescriptor.fontDescriptorByAddingAttributes([</span><br><span class="line">    <span class="type">UIFontDescriptorCharacterSetAttribute</span>: charset,</span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>英数字用のUIFontDescriptorを作ります。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> reservedDescriptor = <span class="type">UIFontDescriptor</span>(fontAttributes: [<span class="type">UIFontDescriptorNameAttribute</span>:<span class="string">"CourierNewPSMT"</span>])</span><br></pre></td></tr></table></figure></p>
+<p>日本語のUIFontDescriptorに対して、</p>
+<ul>
+<li>英数字用のUIFontDescriptor</li>
+<li>システムフォントのUIFontDescriptor</li>
+</ul>
+<p>をUIFontDescriptorCascadeListAttributeに追加します。</p>
+<p>システムフォントの<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> combinedDescriptor = removedAlphanumericDescriptor.fontDescriptorByAddingAttributes(</span><br><span class="line">    [</span><br><span class="line">        <span class="type">UIFontDescriptorCascadeListAttribute</span>: [</span><br><span class="line">            reservedDescriptor,</span><br><span class="line">            <span class="type">UIFont</span>.systemFontOfSize(<span class="number">1</span>).fontDescriptor(),</span><br><span class="line">        ]</span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>合体させたUIFontDescriptorからUIFontを生成<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> font = <span class="type">UIFont</span>(descriptor: combinedDescriptor, size: <span class="number">20</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="fontを使ってみると">fontを使ってみると</h2><p><img src="https://minbox.com/gi/gVdyKuC/full" alt="https://minbox.com/gi/gVdyKuC/full"></p>
+<p>これは結構便利です。</p>
+<h2 id="補足">補足</h2><p>3番目にシステムフォントを追加しておくことで、念のためほとんどの文字が表示できるようにしてあります。</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIFont/">UIFont</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIFontDescriptor/">UIFontDescriptor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/24/rxswift-easy-integrate-async-function/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          RxSwift - 簡単に既存の非同期処理をRxSwift対応にする方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/20/rxswift-throw-object-next-map/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          RxSwift - シーケンスの.map間のオブジェクトやりとりについて
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:muukii.me">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">muukii&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2015 muukii<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

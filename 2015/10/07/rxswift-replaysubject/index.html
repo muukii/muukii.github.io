@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>RxSwift - Multiple Delegate の実装 (Delegateを複数持てる構造) | muukii&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="以前 Delegateの複数版?的なことを実装 という記事を書いていますが、そのやり方はどうやら、正しい方法ではないようでした。
+BagをつくってforEachするのではなく
+1ReplaySubject
+というクラスがBagでforEachをやってくれていました。この実装はNSObject+Rx.swfitのrx_deallocatingあたりでやっていました。
+ReplaySubjectの使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift - Multiple Delegate の実装 (Delegateを複数持てる構造)">
+<meta property="og:url" content="http://muukii.me/2015/10/07/rxswift-replaysubject/index.html">
+<meta property="og:site_name" content="muukii's blog">
+<meta property="og:description" content="以前 Delegateの複数版?的なことを実装 という記事を書いていますが、そのやり方はどうやら、正しい方法ではないようでした。
+BagをつくってforEachするのではなく
+1ReplaySubject
+というクラスがBagでforEachをやってくれていました。この実装はNSObject+Rx.swfitのrx_deallocatingあたりでやっていました。
+ReplaySubjectの使用">
+<meta property="og:updated_time" content="2015-12-24T03:04:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxSwift - Multiple Delegate の実装 (Delegateを複数持てる構造)">
+<meta name="twitter:description" content="以前 Delegateの複数版?的なことを実装 という記事を書いていますが、そのやり方はどうやら、正しい方法ではないようでした。
+BagをつくってforEachするのではなく
+1ReplaySubject
+というクラスがBagでforEachをやってくれていました。この実装はNSObject+Rx.swfitのrx_deallocatingあたりでやっていました。
+ReplaySubjectの使用">
+  
+    <link rel="alternative" href="/atom.xml" title="muukii&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">muukii&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://muukii.me"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-rxswift-replaysubject" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2015/10/07/rxswift-replaysubject/" class="article-date">
+  <time datetime="2015-10-06T16:35:54.000Z" itemprop="datePublished">2015-10-07</time>
+</a>
+		</span>
+		<a class="meta-elements author" href="https://github.com/muukii0803">muukii</a>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      RxSwift - Multiple Delegate の実装 (Delegateを複数持てる構造)
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>以前 <strong>Delegateの複数版?的なことを実装</strong> という記事を書いていますが、<br>そのやり方はどうやら、正しい方法ではないようでした。</p>
+<p>BagをつくってforEachするのではなく</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ReplaySubject</span><br></pre></td></tr></table></figure>
+<p>というクラスがBagでforEachをやってくれていました。<br>この実装は<code>NSObject+Rx.swfit</code>の<code>rx_deallocating</code>あたりでやっていました。</p>
+<p>ReplaySubjectの使用方法ですが、<br>よくあるシングルトンとViewControllerの関係を例にすると、以下のような感じになります。</p>
+<p>Manager.swift<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">let</span> sharedInstance = <span class="type">Manager</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rx_beginEditing: <span class="type">Observable</span>&lt;<span class="type">Void</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.subjectBeginEditing</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> subjectBeginEditing = <span class="type">ReplaySubject</span>&lt;<span class="type">Void</span>&gt;.create(bufferSize: <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">foo</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.subjectBeginEditing.on(.<span class="type">Next</span>())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Controller.swift<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">Manager</span>.sharedInstance</span><br><span class="line">       .rx_beginEditing</span><br><span class="line">       .subscribeNext &#123;</span><br><span class="line">           <span class="comment">// call</span></span><br><span class="line">        &#125;</span><br><span class="line">       .addDisposableTo(<span class="keyword">self</span>.disposeBag)</span><br><span class="line"></span><br><span class="line"><span class="type">Manager</span>.sharedInstance</span><br><span class="line">       .rx_beginEditing</span><br><span class="line">       .subscribeNext &#123;</span><br><span class="line">           <span class="comment">// call</span></span><br><span class="line">        &#125;</span><br><span class="line">       .addDisposableTo(<span class="keyword">self</span>.disposeBag)      </span><br><span class="line"></span><br><span class="line"><span class="type">Manager</span>.sharedInstance</span><br><span class="line">       .rx_beginEditing</span><br><span class="line">       .subscribeNext &#123;</span><br><span class="line">           <span class="comment">// call</span></span><br><span class="line">        &#125;</span><br><span class="line">       .addDisposableTo(<span class="keyword">self</span>.disposeBag)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</span><br></pre></td></tr></table></figure></p>
+<p>subscribeしたところは全て呼び出されました。<br>多分このやり方で問題ないんでしょう。きっと。</p>
+<p>ReplaySubjectのbufferSizeについてはよくわかっていないので、<br>また別途調査したいと思います。</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RxSwift/">RxSwift</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/10/rxswift-promiss/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          RxSwiftでPromissのような記述方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/08/gradient-way/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          iOS グラデーションを描く２つの方法
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:muukii.me">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">muukii&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2015 muukii<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>
