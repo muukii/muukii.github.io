@@ -50,7 +50,7 @@ class OSSItem extends React.Component {
 
   // - Private
   getInfo() {
-    GitHubRequest.get('/repos/muukii/' + this.props.ossObject.name + '?access_token=16a953b32933229e6f7b33d3237d3ca2793f29a2')
+    GitHubRequest.get('/repos/muukii/' + this.props.ossObject.name + '?access_token=0a59e76c2ad15cbdfec56912f14f7ab92416775b')
     .then(r => {
       let data = r.data
       let url = data.html_url
