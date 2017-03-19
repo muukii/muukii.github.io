@@ -2,6 +2,7 @@ languageCode = "en-us"
 title = "muukii docs"
 baseURL = "https://muukii.github.io"
 canonifyurls = true
+publishDir = "docs"
 
 paginate = 5 # Number of posts to show before paginating
 
