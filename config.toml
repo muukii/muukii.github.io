@@ -1,10 +1,11 @@
 languageCode = "en-us"
 title = "muukii docs"
 baseURL = "https://muukii.github.io"
+canonifyurls = true
 
 paginate = 5 # Number of posts to show before paginating
 
-# theme = "after-dark" # Uncomment to use as default theme
+theme = "after-dark"
 
 enableRobotsTXT = true # Suggested, enable robots.txt file
 googleAnalytics = "" # Optional, add tracking Id for analytics
@@ -14,7 +15,7 @@ footnoteReturnLinkContents = "↩" # Provides a nicer footnote return link
 
 [params]
   description = "" # Suggested, controls default description meta
-  author = "" # Optional, controls author name display on posts
+  author = "muukii"
   hide_author = false # Optional, set true to hide author name on posts
   show_menu = false # Optional, set true to enable section menu
   powered_by = true # Optional, set false to disable credits
