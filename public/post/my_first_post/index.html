@@ -16,7 +16,8 @@
 
 
     <meta property="og:title" content="my_first_post" />
-<meta property="og:description" content="Hello, Hugo" />
+<meta property="og:description" content="Hello, Hugo こんにちは 本日は快晴
+func mysteryCircle(sides: [String], center: String) -&gt; String { func wave(min: Int, max: Int, count: Int) -&gt; [Int] { var array = [Int](repeating: max, count: count) let side = (min..&lt;max).map { $0 } array.replaceSubrange(Range&lt;Int&gt;(side.indices), with: side) let center = array.removeLast() return array &#43; [center] &#43; Array(array.reversed()) } let chars = sides &#43; [center] var message: String = &quot;&quot; wave(min: 0, max: chars.count, count: chars.count).forEach { i in let c = i let indices = wave(min: 0, max: c, count: chars." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://muukii.github.io/post/my_first_post/" />
 
@@ -253,11 +254,12 @@ jJasrM9JHpMQoTocKVCL4IPr/fOT+fzoT3p+SelrFs2odf2vmwZACVzT9SAJ8iKO6OCx+/tKkw2M
   <article itemscope itemtype="http://schema.org/BlogPosting">
     
 <meta itemprop="name" content="my_first_post">
-<meta itemprop="description" content="Hello, Hugo">
+<meta itemprop="description" content="Hello, Hugo こんにちは 本日は快晴
+func mysteryCircle(sides: [String], center: String) -&gt; String { func wave(min: Int, max: Int, count: Int) -&gt; [Int] { var array = [Int](repeating: max, count: count) let side = (min..&lt;max).map { $0 } array.replaceSubrange(Range&lt;Int&gt;(side.indices), with: side) let center = array.removeLast() return array &#43; [center] &#43; Array(array.reversed()) } let chars = sides &#43; [center] var message: String = &quot;&quot; wave(min: 0, max: chars.count, count: chars.count).forEach { i in let c = i let indices = wave(min: 0, max: c, count: chars.">
 
 
 <meta itemprop="dateModified" content="2017-03-20T01:16:04&#43;09:00" />
-<meta itemprop="wordCount" content="2">
+<meta itemprop="wordCount" content="94">
 
 
 
@@ -282,7 +284,39 @@ jJasrM9JHpMQoTocKVCL4IPr/fOT+fzoT3p+SelrFs2odf2vmwZACVzT9SAJ8iKO6OCx+/tKkw2M
     
 
     <div itemprop="articleBody">
-      <p>Hello, Hugo</p>
+      <p>Hello, Hugo
+こんにちは
+本日は快晴</p>
+
+<pre><code class="language-swift">func mysteryCircle(sides: [String], center: String) -&gt; String {
+
+  func wave(min: Int, max: Int, count: Int) -&gt; [Int] {
+
+    var array = [Int](repeating: max, count: count)
+
+    let side = (min..&lt;max).map { $0 }
+    array.replaceSubrange(Range&lt;Int&gt;(side.indices), with: side)
+    let center = array.removeLast()
+    return array + [center] + Array(array.reversed())
+  }
+
+  let chars = sides + [center]
+
+  var message: String = &quot;&quot;
+  wave(min: 0, max: chars.count, count: chars.count).forEach { i in
+    let c = i
+
+    let indices = wave(min: 0, max: c, count: chars.count)
+
+    indices.forEach { s in
+      message.append(chars[s].description)
+    }
+    message.append(&quot;\n&quot;)
+  }
+
+  return message
+}
+</code></pre>
 
     </div>
     
@@ -300,7 +334,7 @@ jJasrM9JHpMQoTocKVCL4IPr/fOT+fzoT3p+SelrFs2odf2vmwZACVzT9SAJ8iKO6OCx+/tKkw2M
   </time>
   
   
-  using <span itemprop="wordCount">2</span> words.
+  using <span itemprop="wordCount">94</span> words.
 </p>
 
       
